@@ -11,7 +11,42 @@ public:
             }
         }
          sort(values.begin(),values.end());
-        values.erase(unique(values.begin(), values.end()), values.end());
+        values.erase(unique(values.begin(), values.end()), values.end());//Remove duplicate position
         return values;
     }
+};
+this solution is simple but inefficient，algorism's time complexit：o(n^2), space complexit:o(1)
+
+so another solution:O(n),O(n),we can use map;
+//
+// Created by he on 18-9-6.
+//
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<map>
+using namespace std;
+class Solution{
+public:
+    vector<int>towSum(vector<int>&nums,int target){
+        map <int,int>mpp;
+        vector <int >values;
+        for(int i=0;i<nums.size();i++){
+            mpp[nums[i]]=i;
+
+        }
+
+        for(int i=0;i<nums.size();i++){
+            int other=target-nums[i];
+            if(mpp.find(other)!=mpp.end()&&mpp[other]>i){
+
+                values.push_back(i);
+                values.push_back(mpp[other]);
+
+            }
+        }
+
+        return values;
+    }
+
 };
