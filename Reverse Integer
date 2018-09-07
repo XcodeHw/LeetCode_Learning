@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int reverse(int x) {
+        char *values=new char[33];
+        string temp;
+        temp=to_string(x);
+        const char *k;
+        k=temp.c_str();
+        int a=temp.size();
+        for(int i=a;i>=1;i--){
+            values[a-i]=k[i-1];
+        }
+        int result;
+        result=atoi(values);     ///use array is  Complicated and cumbersome，and sometimes  it could be quite error 
+        if(x>=0){
+            result=result;
+        }else{
+            result=-result;
+        }
+        return result;
+    }
+};
+
+This solution is not good and it can't pass.but use clion it can success,I think it's complicated.actually; in fact; it is so easy
+
+
+int reverse(int x){
+long long r=0;
+long long t=x;
+t=t>0?t:-t;
+for(;t;t/=10)
+  r=r*10+t%10;
+  bool sign=x>0?false:true;
+  if(r>2147483647||(sign&&r>2147483648){
+  return 0;
+  }else{
+  if(sign){
+  return -r;
+  }else{
+  
+  return r;
+  }
+  }
+}
+};
+
+
+Through this procedure, I understand it is so easy to solve problems with mathematical method. sometimes
+  
