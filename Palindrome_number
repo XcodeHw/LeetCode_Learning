@@ -1,0 +1,61 @@
+
+Determine whether an integer is a palindrome. An integer is a palindrome when it reads the same backward as forward.
+
+Example 1:
+
+Input: 121
+Output: true
+Example 2:
+
+Input: -121
+Output: false
+Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.
+Example 3:
+
+Input: 10
+Output: false
+Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
+Follow up:
+
+Coud you solve it without converting the integer to a string?
+
+
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        int temp=0;
+        int t=x;
+        if(x<0){
+         return false;   
+        }else{
+            for(;t;t/=10){
+                temp=temp*10+t%10;
+            }
+            if(temp==x){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return true; ///this is so easy ,we can be associated with the last question,The idea of solving the problem is the same,algorithm complexity
+   O(1)
+   
+   
+   someone's idea
+   
+   bool isPalindrome(int x){
+   if(x<0)return false;
+   int d=1;//divisor
+   while(x/d>=10)d*=10;
+   while(x>0){
+   int q=x/d;//quotient
+   int r=x%10;//remainder
+   if(q!=r)return false;
+   x=x%d/10;
+   d/=10;
+   
+   }
+   return true
+   }
+   
+};
