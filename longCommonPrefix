@@ -1,0 +1,100 @@
+Write a function to find the longest common prefix string amongst an array of strings.
+
+If there is no common prefix, return an empty string "".
+
+Example 1:
+
+Input: ["flower","flow","flight"]
+Output: "fl"
+
+Example 2:
+
+Input: ["dog","racecar","car"]
+Output: ""
+Explanation: There is no common prefix among the input strings.
+
+Note:
+
+All given inputs are in lowercase letters a-z.
+
+/************/
+
+//
+// Created by he on 18-9-8.
+//
+#include<iostream>
+#include<vector>
+using namespace std;
+
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        string s;
+        /*when strs is empty  return "" */
+        if(strs.empty()){
+            s="";
+
+        }else {
+        /* when strs is not empty*/
+            int numbers = strs.size();//get vector size;
+            /*get the minimum in size */
+            int minSize = strs[0].size();
+            for (int i = 0; i < numbers; i++) {
+                if (minSize > strs[i].size()) {
+                    minSize = strs[i].size();
+                }
+            }
+
+
+            char temp;
+            int count = 0;
+            /*iterate arrays */
+            for (int i = 0; i < minSize; i++) {
+                temp = strs[0][i];
+
+                for (int j = 0; j < numbers; j++) {
+                    if (temp == strs[j][i]) {
+                        count++;
+                        if (count == numbers && j == numbers - 1) {
+
+                            count = 0;
+                            s = s + strs[j][i];
+
+                        }
+                    } else {
+                        count = 0;
+                        s = s + "";
+                        return s;
+                    }
+
+
+
+                }
+
+            }
+        }
+
+return s;
+    }
+};
+/*
+int main(){
+
+    Solution s;
+    vector<string>strArray;
+    strArray.push_back("aca");
+    strArray.push_back("cba");
+
+   cout<<s.longestCommonPrefix(strArray);
+
+}
+ */
+ 
+ /*
+  * this is my solution ,but pesonally speaking it is too stupid  and code is so long
+  *
+  */
+  so i find some nice Solutions
+  
+  
+  
