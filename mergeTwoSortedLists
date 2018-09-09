@@ -30,5 +30,37 @@ public:
 	}
 };
 
+int main()
+{
+	
+	ListNode *h = new ListNode{0};
+	ListNode *h1 = new ListNode{ 6 };
+	ListNode *p;
+	ListNode *p1;
+	p = h;
+	p1 = h1;
+	
+	for(int i=1;i<5;i++){
+		ListNode *q = new ListNode{i};
+		p->next =q;
+		p= q;
+		
+	}
+	for (int i = 7; i < 12; i++) {
+		ListNode *q = new ListNode{ i };
+		p1->next = q;
+		p1 = q;
+	}
+	
+	Solution s;
+	ListNode *re;
+	re=s.mergeTwoLists(h,h1);
+	while (re!=NULL) {
+		cout << re->val << "->";
+		re = re->next;
+	}
+	system("pause"); 
+}
+
 
 There's nothing to tell about It's too simple. Just pay attention to details.
