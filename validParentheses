@@ -1,0 +1,67 @@
+
+Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+
+    Open brackets must be closed by the same type of brackets.
+    Open brackets must be closed in the correct order.
+
+Note that an empty string is also considered valid.
+class Solution {
+public:
+    bool isValid(string s) {
+        map<char,char>mp{{'(',')'},{'{','}'},{'[',']'}};
+        stack<char>sta;
+        bool flag;
+        char a ;
+        int size=s.size();
+        cout<<mp[s[0]];
+        sta.push('1');
+
+        for(int i=0;i<size;i++) {
+
+                if (mp[sta.top()] == s[i]) {
+
+                    sta.pop();
+
+                } else {
+                    sta.push(s[i]);//use a stack then if  they is equal then pop otherwise push
+
+                }
+            }
+
+
+        if(sta.top()=='1'){
+           flag=true;
+        }else{
+            flag=false;
+        }
+        return flag;
+    }
+};
+/******/
+but i find ohter is better than me ,his code is concise,though his idea is same with me 
+bool isValid(string const &s){
+
+string left="([{";
+stirng right=")]}";
+stack<char>stk;
+for(auto c:s){
+
+if(left.find(c)!=string::npos){
+stk.push(c);
+}else{
+if(stk.empty()||stk.top()!=left[right.find(c)])
+    return false;
+else
+     stk.pop();
+   }
+   }
+   return stk.empty();
+   }；
+
+
+
+
+}
+
