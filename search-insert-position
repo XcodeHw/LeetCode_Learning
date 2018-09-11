@@ -3,7 +3,44 @@ Given a sorted array and a target value, return the index if the target is found
 You may assume no duplicates in the array.
 
 /*********************/
+class Solution {
+public:
+	int searchInsert(vector<int>&nums, int target) {
+		int size = nums.size();
 
+		for (int i = 0; i < size; i++) {
+			if (nums[i] == target) {
+				return i;
+			}
+			else if (nums[size - 1] < target) {
+				vector<int>::iterator it;
+				it = nums.begin() + (size);
+				nums.insert(it, target);
+				return size;
+			}
+			else if(nums[0]>target) {
+
+				vector<int>::iterator it;
+				it = nums.begin();
+				nums.insert(it, target);
+				return 0;
+			}
+			else if(nums[i]<target&&nums[i+1]>target) {
+				vector<int>::iterator it;
+				it = nums.begin() + (i + 1);
+				nums.insert(it, target);
+				return i + 1;
+			}
+
+		}
+		return 0;
+	}
+	
+
+
+
+};
+/**************/
 
 
 class Solution {
