@@ -1,0 +1,83 @@
+Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
+
+Example:
+
+Input: [-2,1,-3,4,-1,2,1,-5,4],
+Output: 6
+Explanation: [4,-1,2,1] has the largest sum = 6.
+/**************/
+class Solution {
+public:
+
+	int maxSubArray(vector<int>&nums) {
+		int max = nums[0];
+		int temp = 0;
+		int nsize = nums.size();
+		for (int i = 0; i < nsize; i++) {
+			for (int j = i; j < nsize; j++) {
+				temp += nums[j];
+				if (temp > max) {
+					max = temp;//-2,-1,-3,4,-1,2,1,-5// this solution is too sample and inefficient
+				}
+				
+				
+			}
+			temp = 0;
+		}
+		return max;
+	}
+};
+/***********/
+using the divide and conquer approach
+/**********/
+class Solution {
+public:
+    int maxSum(vector<int>& nums,int l,int r){
+        int mid = (l+r)/2;
+        int sum = 0;
+        int leftSum = nums[mid];
+        int rightSum = 0;
+        int res = 0;
+        
+        if(l == r){
+            return nums[mid];
+        }
+        
+        int maxLeft = maxSum(nums,l,mid);
+        int maxRight = maxSum(nums,mid+1,r);
+        
+        /*left max sub array*/
+        for(int i = mid;i>=l;--i){
+            sum+=nums[i];
+            leftSum = max(leftSum,sum);
+        }
+        
+        /*right max sub array*/
+        sum = 0;
+        for(int i = mid+1;i <= r;++i){
+            sum+=nums[i];
+            rightSum = max(rightSum,sum);
+        }
+        
+        return max(leftSum+rightSum,max(maxLeft,maxRight));
+    }
+    
+    int maxSubArray(vector<int>& nums) {
+        return maxSum(nums,0,nums.size()-1);
+    }
+};
+////
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int current=nums[0];
+        int sum=nums[0];
+        
+        for(int i=1;i<nums.length;i++) {
+            if(current<0)current=nums[i];//
+            else current+=nums[i];
+            if(current>sum)sum=current;
+           
+        }
+        return sum;
+    }
+}
