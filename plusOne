@@ -1,0 +1,68 @@
+
+Given a non-empty array of digits representing a non-negative integer, plus one to the integer.
+
+The digits are stored such that the most significant digit is at the head of the list, and each element in the array contain a single digit.
+
+You may assume the integer does not contain any leading zero, except the number 0 itself.
+
+Example 1:
+
+Input: [1,2,3]
+Output: [1,2,4]
+Explanation: The array represents the integer 123.
+Example 2:
+
+Input: [4,3,2,1]
+Output: [4,3,2,2]
+Explanation: The array represents the integer 4321.
+
+/*****************/
+#include"stdafx.h"
+#include<iostream>
+#include<vector>
+using namespace std;
+class Solution {
+public:
+	vector<int>plusOne(vector<int>&digits) {
+
+		if (digits.empty()) {
+
+			return digits;
+		}
+		
+		int size = digits.size();
+		vector<int>temp(size);
+		for (int i = 0; i < size; i++) {
+			temp[i] = digits[i];
+		}
+		
+			int flag = 1;
+			for (int i = size - 1; i >= 0; i--) {
+				//2,4,9,3,9
+				int te;
+				te = digits[i] + flag;
+				if (te == 10) {
+					flag = 1;
+				}
+				else {
+					flag = 0;
+				}
+				if (te % 10 == 0&&i==0) {
+					temp[i] = te % 10;
+					temp.insert(temp.begin(), 1);
+				}
+				else {
+					temp[i] = te % 10;
+				}
+				//cout << "1::" << temp[i] << endl;
+				
+				te = 0;
+
+			}
+		
+		
+			return temp;
+	}
+};
+/****************/
+i spend lots of time on detail, just as well，finally ,i finished it
