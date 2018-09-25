@@ -1,0 +1,22 @@
+/*************************/
+Given a binary tree and a sum, determine if the tree has a root-to-leaf path such that adding up all the values along the path equals the given sum.
+
+Note: A leaf is a node with no children.
+
+Example:
+
+Given the below binary tree and sum = 22,
+/**************************/
+i write lots of rows but it is error,the answer is just  3 rows,so i do not unstand recursion 
+
+/
+class Solution {
+public :
+	bool hasPathSum(TreeNode* root, int sum) {
+		if (root == NULL)return false;
+		if (root->val == sum && root->left == NULL && root->right == NULL)return true;
+		return hasPathSum(root->left, sum - root->val) || hasPathSum(root->right, sum - root->val);
+	}
+		
+	
+};
