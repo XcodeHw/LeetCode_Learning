@@ -1,0 +1,45 @@
+Given a binary tree, determine if it is height-balanced.
+
+For this problem, a height-balanced binary tree is defined as:
+
+a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
+
+Example 1:
+
+Given the following tree [3,9,20,null,null,15,7]:
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+   
+ /******************************/
+ First ,i am surprised it can pass ,because i writed two-layer recursion,i thought it can not pass ,for example time is out 
+ i just come up with it 
+ 
+ /*****************************/
+ class Solution {
+public :
+	bool isBalanced(TreeNode *root) {
+		if (root == NULL) {
+			return true;
+		}
+		if (abs(getHeight(root->left) - getHeight(root->right)) > 1) {
+			return false;
+		}
+		bool leftcount = isBalanced(root->left);
+		bool rightcount = isBalanced(root->right);
+		
+		return leftcount&&rightcount;
+	}
+	int getHeight(TreeNode* root) {
+		if (root == NULL) {
+			return 0;
+		}
+		int t1 = getHeight(root->left);
+		int t2 = getHeight(root->right);
+		return (t1 > t2 ? t1 : t2) + 1;
+	}
+};
+/******************************/
