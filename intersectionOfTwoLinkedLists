@@ -1,0 +1,78 @@
+/***************************************/
+
+
+
+Write a program to find the node at which the intersection of two singly linked lists begins.
+
+
+For example, the following two linked lists:
+
+A:          a1 → a2
+                   ↘
+                     c1 → c2 → c3
+                   ↗            
+B:     b1 → b2 → b3
+begin to intersect at node c1.
+
+/****************************************/
+
+class Solution {
+public:
+	ListNode *getIntersectionNode(ListNode *headA,ListNode*headB){
+		
+			if (headA == NULL || headB == NULL) {
+				return NULL;
+			}
+			ListNode *p = headA;
+			ListNode *q = headB;
+
+			int Lsize = length(headA);
+			cout << "size1:" << Lsize;
+			
+			int Rsize = length(headB);
+			cout << "size2:" << Rsize << endl;
+			if ((Lsize - Rsize) > 0) {
+				for (int i = 0; i <=(Lsize - Rsize) - 1; i++)
+					p = p->next;
+
+			}
+			
+			else  {
+				
+				for (int i = 0; i <= (Rsize - Lsize) - 1; i++) {
+					
+					q = q->next;
+					cout << q->val << endl;
+				}
+			}
+			while (p&&q) {
+
+				if (p == q) {
+					return p;
+				}
+				else {
+					p = p->next;
+					q = q->next;
+				}
+			}
+			
+			
+			return NULL;
+	}
+	int length(ListNode *head) {
+		if (head == NULL) {
+			return 0;
+		}
+		ListNode *p;
+		p = head;
+		int count = 0;
+		while (p) {
+			count++;
+			p = p->next;
+		}
+		return count;
+	}
+};
+
+
+//i do not know ,Is it complicated to be written?
