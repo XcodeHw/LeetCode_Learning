@@ -1,0 +1,119 @@
+
+/***************************/
+Given two strings s and t, determine if they are isomorphic.
+
+Two strings are isomorphic if the characters in s can be replaced to get t.
+
+All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character but a character may map to itself.
+
+Example 1:
+
+Input: s = "egg", t = "add"
+Output: true
+Example 2:
+
+Input: s = "foo", t = "bar"
+Output: false
+Example 3:
+
+Input: s = "paper", t = "title"
+Output: true
+/**************************/
+class Solution {
+public:
+	bool isIsomorphic(string s, string t) {
+		map<char, char>mapstr;
+		
+			
+			int i = 0;
+			//egg add 
+			int size = s.length();
+			while (i < size) {
+				if (mapstr.count(s[i]) > 0) {
+					if (mapstr[s[i]] != t[i]) {
+						return false;
+					}
+					else {
+						i++;
+					}
+				}
+				else {
+					if (mapstr.count(s[i]) == 0) {
+						mapstr.insert(pair<char, char>(s[i], t[i]));
+						
+				}
+					if (findkey(t[i],mapstr) == 0) {
+						mapstr.insert(pair<char, char>(s[i], t[i]));
+						i++;
+					}
+					else if (findkey(t[i], mapstr)>1) {
+						return false;
+					}
+					
+				}
+				
+				}
+			
+			
+			return true;
+
+		}
+	int  findkey(char n,map<char,char>m) {
+		map<char, char>::iterator iter;
+		vector<char>result;
+		iter = m.begin();
+		char t = NULL;
+		int count = 0;
+		while (iter != m.end()) {
+			if (iter->second == n) {
+				 t= iter->first;
+				 result.push_back(t);
+			}
+			iter++;
+		}
+		return result.size();
+		}
+
+};
+//this is my long code haha //
+
+
+
+
+
+
+
+
+//other's code 
+
+
+
+
+
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        if(s.size() != t.size())
+            return false;
+        map<char,int> sMap;
+        map<char,int> tMap;
+        for(int i = 0; i < s.size(); i++){  
+            if(sMap.find(s[i]) == sMap.end() && tMap.find(t[i]) == tMap.end()){
+                sMap[s[i]] = i;
+                tMap[t[i]] = i;
+            }
+            
+            else if(sMap.find(s[i]) != sMap.end() && tMap.find(t[i]) != tMap.end()){
+                     if( sMap[s[i]] != tMap[t[i]])
+                            return false;
+            }           
+            else 
+                return false;
+
+        }
+        return true;
+
+
+    }
+};
+////My code is pretty scary.haha 
