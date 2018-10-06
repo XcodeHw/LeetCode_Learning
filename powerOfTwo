@@ -1,0 +1,21 @@
+//***********************//
+
+Given an integer, write a function to determine if it is a power of two.
+
+/**********************88/
+
+
+class Solution {
+public:
+	bool isPowerOfTwo(int n) {
+		if (n == 0) {
+			return false;
+		}
+		for (int i = 0; i <=log(n)/log(2); i++) {
+			if (n == pow(2, i)) {
+				return true;
+}
+		}
+		return false;
+	}
+};
