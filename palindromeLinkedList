@@ -1,0 +1,98 @@
+/****************************************/
+Given a singly linked list, determine if it is a palindrome.
+
+Example 1:
+
+Input: 1->2
+Output: false
+Example 2:
+
+Input: 1->2->2->1
+Output: true
+Follow up:
+Could you do it in O(n) time and O(1) space?
+/****************************************/
+class Solution {
+public:
+	bool isPalindrome(ListNode *head){
+		if (head == NULL|| head->next == NULL) {
+			return true;
+		}
+		vector<int>result;
+		ListNode *p = head;
+		while (p) {
+			result.push_back(p->val);
+			p = p->next;
+		}
+		int size = result.size();
+		for (int i = 0; i < size; i++) {
+			if (result[i] != result[size - 1 - i]) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+};
+// O(n),O(n),it also can use stack
+//I can not  think a solution which O(n),O(1),so i searched other's iead and write some codes 
+//
+class Solution {
+public:
+	bool isPalindrome(ListNode *head){
+if (head == NULL || head->next == NULL) {
+			return true;
+		}
+		ListNode *p = midNode(head);
+		ListNode *q = reverseList(p->next);
+		cout << "q:" << q->val << endl;
+		while (q) {
+			if (head->val != q->val) {
+				return false;
+			}
+			head = head->next;
+			q = q->next;
+		}
+		return true;
+	}
+	int lenList(ListNode *head) {
+		if (head == NULL) {
+			return 0;
+		}
+		int count = 0;
+		ListNode *p = head;
+		while (p) {
+			count++;
+			p = p->next;
+		}
+		return count;
+	}
+	ListNode * midNode(ListNode *head) {
+		ListNode * p = head;
+		int count = 1;
+		
+		int size = lenList(head);
+		int size2 = size/2;
+	
+		if (lenList(head) % 2 != 0) {
+			size2 = size/2 + 1;
+		}
+		cout << "size2:" <<size2<< endl;
+		while (count < size2) {
+			count++;
+			p = p->next;
+			
+		}
+		return p;
+	}
+	ListNode * reverseList(ListNode*head) {
+		if (head == NULL || head->next == NULL) {
+			return head;
+		}
+		ListNode *p = head->next;
+		head->next = NULL;
+		ListNode *q = reverseList(p);
+		p->next = head;
+		return q;
+	}
+};
