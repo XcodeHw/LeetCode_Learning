@@ -1,0 +1,65 @@
+/************************************************/
+
+Given two strings s and t , write a function to determine if t is an anagram of s.
+
+Example 1:
+
+Input: s = "anagram", t = "nagaram"
+Output: true
+Example 2:
+
+Input: s = "rat", t = "car"
+Output: false
+Note:
+You may assume the string contains only lowercase alphabets.
+
+Follow up:
+What if the inputs contain unicode characters? How would you adapt your solution to such case?
+
+
+
+
+/*********************************************/
+
+
+
+#include<iostream>
+#include<string>
+#include<map>
+using namespace std;
+class Solution {
+public:
+	bool isAnagram(string s, string t) {
+		
+		if (s==t) {
+			return true;
+		}
+		if (s.size() != t.size()) {
+			return false;
+		 }
+			map<char, int>res1=Save(s);
+			map<char, int>res2=Save(t);
+			int ssize = s.size();
+			for (int i = 0; i < ssize; i++) {
+				if (res1[s[i]] != res2[s[i]]) {
+					return false;
+				}
+			}
+
+			return true;
+	}
+	map<char, int> Save(string s) {
+		int size = s.size();
+		map<char, int>result;
+		for (int i = 0; i < size; i++) {
+			if (result.count(s[i]) == 0) {
+				result[s[i]] = 1;
+			}
+			else {
+				result[s[i]]=result[s[i]]+1;
+			}
+		}
+		return result;
+	}
+
+};
