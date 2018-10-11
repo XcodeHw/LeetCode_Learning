@@ -1,0 +1,41 @@
+/******************************************/
+
+Given a non-negative integer num, repeatedly add all its digits until the result has only one digit.
+
+Example:
+
+Input: 38
+Output: 2 
+Explanation: The process is like: 3 + 8 = 11, 1 + 1 = 2. 
+             Since 2 has only one digit, return it.
+
+
+
+/*******************************************/
+
+class Solution {
+public:
+	int addDigits(int num) {
+		string s;
+		s= to_string(num);
+		if(num<10){
+            return num;
+        }
+		int tm = 0;
+		while (1) {
+			for (int i = 0; i < s.size(); i++) {
+				tm = tm+ (s[i] - '0') + (s[s.size() - 1 - i] - '0') ;
+				
+
+			}
+			tm = tm / 2;
+			if (tm < 10 && tm != 0) {
+				break;
+			}
+			s = to_string(tm);
+			tm = 0;
+			
+		}
+		return tm;
+	}
+};
