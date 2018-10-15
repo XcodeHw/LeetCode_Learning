@@ -1,0 +1,47 @@
+/********************************************/
+
+Write a function that takes a string as input and reverse only the vowels of a string.
+
+Example 1:
+Given s = "hello", return "holle".
+
+Example 2:
+Given s = "leetcode", return "leotcede".
+
+Note:
+The vowels does not include the letter "y".
+
+
+
+
+/*****************************************/终极暴力之终极小暴力
+
+class Solution {
+	//a,e,i,o,u
+public:
+	string reverseVowels(string s) {
+		if (s == "") {
+			return s;
+		}
+		vector<int>res;
+		map<char, int >mpp;
+		mpp = { {'a',0},{'e',0},{'i',0},{'o',0},{'u',0},
+		{ 'A',0 },{ 'E',0 },{ 'I',0 },{ 'O',0 },{ 'U',0 } };
+		int size = s.size();
+		for (int i = 0; i < size; i++) {
+			if (mpp.count(s[i]) != 0) {
+				res.push_back(i);
+			}
+			}
+		int size2 = res.size();
+		for (int i = 0; i < size2; i++) {
+			for (int j = i + 1; j < size2; j++) {
+				char tmp;
+				tmp = s[res[i]];
+				s[res[i]] = s[res[j]];
+				s[res[j]] = tmp;
+			}
+		}
+		return s;
+	}
+};
