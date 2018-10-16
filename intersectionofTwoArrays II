@@ -1,0 +1,66 @@
+/*********************************************/
+Given two arrays, write a function to compute their intersection.
+
+Example 1:
+
+Input: nums1 = [1,2,2,1], nums2 = [2,2]
+Output: [2,2]
+Example 2:
+
+Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+Output: [4,9]
+Note:
+
+Each element in the result should appear as many times as it shows in both arrays.
+The result can be in any order.
+Follow up:
+
+What if the given array is already sorted? How would you optimize your algorithm?
+What if nums1's size is small compared to nums2's size? Which algorithm is better?
+What if elements of nums2 are stored on disk, and the memory is limited such that you cannot load all elements into the memory at once?
+/********************************************/
+
+class Solution {
+public:
+	vector<int>intersect(vector<int>&nums1, vector<int>&nums2) {
+		vector<int>res;
+		vector<int>res2;
+		map<int,int>mpp;
+		map<int, int>mpp2;
+		int size = nums1.size();
+		for (int i = 0; i < size; i++) {
+			if (mpp.count(nums1[i]) == 0) {
+				res2.push_back(nums1[i]);
+				mpp[nums1[i]] = 1;
+			}
+			else {
+				mpp[nums1[i]]++;
+			}
+		}
+		
+		int size2 = nums2.size();
+		for (int i = 0; i < size2; i++) {
+			if (mpp2.count(nums2[i]) == 0) {
+				mpp2[nums2[i]] = 1;
+			}
+			else {
+				mpp2[nums2[i]]++;
+			}
+		}
+		int size3 = res2.size();
+		for (int i = 0; i < size3; i++) {
+			if (mpp2.count(res2[i]) != 0 && mpp2[res2[i]] >= mpp[res2[i]]) {
+				for (int j = 0; j < mpp[res2[i]]; j++) {
+					res.push_back(res2[i]);
+				}
+			}
+			else if (mpp2.count(res2[i]) != 0 && mpp2[res2[i]] < mpp[res2[i]]) {
+				for (int j = 0; j < mpp2[res2[i]]; j++) {
+					res.push_back(res2[i]);
+				}
+			}
+		}
+
+		return res;
+	}
+};
