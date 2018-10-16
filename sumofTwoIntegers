@@ -8,7 +8,7 @@ class Solution {
 public:
     int getSum(int a, int b) {
     while(a != 0) {
-        int tmp = (a & b) << 1;
+        int tmp = (a & b) << 1;//获取需要进位的位置
         b = a ^ b;
         a = tmp;
     }
