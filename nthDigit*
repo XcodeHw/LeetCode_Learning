@@ -51,3 +51,20 @@ public:
 
 	}
 };
+/(************************)*/
+0
+class Solution {
+public:
+    int findNthDigit(int n) {
+        long long b=1LL,cnt=9LL;
+        while(cnt*b<n){
+            n-=cnt*b;
+            cnt*=10;
+            b++;
+        }
+        long long base=pow(10,b-1);
+        long long num=(n-1)/b,mod=(n-1)%b;
+        string s=to_string(base+num);
+        return s[mod]-'0';
+    }
+};
