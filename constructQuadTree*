@@ -1,0 +1,74 @@
+/******************************************/
+
+We want to use quad trees to store an N x N boolean grid. Each cell in the grid can only be true or false. The root node represents the whole grid. For each node, it will be subdivided into four children nodes until the values in the region it represents are all the same.
+
+Each node has another two boolean attributes : isLeaf and val. isLeaf is true if and only if the node is a leaf node. The val attribute for a leaf node contains the value of the region it represents.
+
+Your task is to use a quad tree to represent a given grid. The following example may help you understand the problem better:
+The corresponding quad tree should be as following, where each node is represented as a (isLeaf, val) pair.
+
+For the non-leaf nodes, val can be arbitrary, so it is represented as *.
+
+/******************************************/
+
+*
+// Definition for a QuadTree node.
+class Node {
+public:
+    bool val;
+    bool isLeaf;
+    Node* topLeft;
+    Node* topRight;
+    Node* bottomLeft;
+    Node* bottomRight;
+
+    Node() {}
+
+    Node(bool _val, bool _isLeaf, Node* _topLeft, Node* _topRight, Node* _bottomLeft, Node* _bottomRight) {
+        val = _val;
+        isLeaf = _isLeaf;
+        topLeft = _topLeft;
+        topRight = _topRight;
+        bottomLeft = _bottomLeft;
+        bottomRight = _bottomRight;
+    }
+};
+*/
+class Solution {
+private:
+	Node * dfs(vector<vector<int>>&grid, int x, int y, int length) {
+		if (length == 1) {
+			return new Node(grid[x][y] == 1 ? true : false, true, nullptr, nullptr, nullptr, nullptr);
+		}
+		length /= 2;
+		auto topLeft = dfs(grid, x, y, length);
+		auto topRight = dfs(grid, x, y + length, length);
+		auto bottomLeft = dfs(grid, x + length, y, length);
+		auto bottomRight = dfs(grid, x + length, y + length, length);
+		if (topLeft->isLeaf&&topRight->isLeaf&&bottomRight->isLeaf&&bottomLeft->isLeaf&&
+			topLeft->val == topRight->val&&topRight->val == bottomLeft->val&&bottomLeft->val == bottomRight->val) {
+			bool temp = topLeft->val;
+			delete topLeft;
+			delete topRight;
+			delete bottomLeft;
+			delete bottomRight;
+			return new  Node(temp, true, nullptr, nullptr, nullptr, nullptr);
+		}
+		else {
+			auto p = new Node(true, false, nullptr, nullptr, nullptr, nullptr);
+			p->topLeft = topLeft;
+			p->topRight = topRight;
+			p->bottomLeft = bottomLeft;
+			p->bottomRight = bottomRight;
+			return p;
+		}
+	}
+public:
+	Node * construct(vector<vector<int>>&grid) {
+		if (grid.size() == 0) {
+			return nullptr;
+		}
+		return dfs(grid, 0, 0, grid.size());
+	}
+};
+        
