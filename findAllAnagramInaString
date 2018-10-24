@@ -1,0 +1,139 @@
+/**********************************/
+Given a string s and a non-empty string p, find all the start indices of p's anagrams in s.
+
+Strings consists of lowercase English letters only and the length of both strings s and p will not be larger than 20,100.
+
+The order of output does not matter.
+
+Example 1:
+
+Input:
+s: "cbaebabacd" p: "abc"
+
+Output:
+[0, 6]
+
+Explanation:
+The substring with start index = 0 is "cba", which is an anagram of "abc".
+The substring with start index = 6 is "bac", which is an anagram of "abc".
+Example 2:
+
+Input:
+s: "abab" p: "ab"
+
+Output:
+[0, 1, 2]
+
+Explanation:
+The substring with start index = 0 is "ab", which is an anagram of "ab".
+The substring with start index = 1 is "ba", which is an anagram of "ab".
+The substring with start index = 2 is "ab", which is an anagram of "ab".
+
+
+/*********************************8/
+#include"stdafx.h"
+#include<iostream>
+#include<vector>
+#include<map>
+using namespace std;
+class Solution {
+public:
+	vector<int>findAnagrams(string s, string p) {
+		
+		vector<int>res;
+		if (s.empty()) {
+			return res;
+		}
+		
+		map<char, int>mp2;
+		int size = s.size();
+		int psize = p.size();
+		if (size < psize) {
+			return res;
+		}
+
+			for (int f = 0; f < psize; f++) {
+			
+				if (mp2.count(p[f]) == 0) {
+					mp2[p[f]] = 1;
+				}
+				else if(mp2.count(p[f]) ==1){
+				
+					mp2[p[f]] = mp2[p[f]] + 1;
+					
+				}
+		}
+		
+			
+		for (int i = 0; i < size-psize+1; i++) {
+			map<char, int>mp;
+			int flag = 1;
+			for (int j = i; j <i+ psize; j++) {
+				
+				if (mp.count(s[j]) == 0) {
+					mp[s[j]] = 1;
+				}
+				else if(mp.count(s[j]) == 1){
+					mp[s[j]]=mp[s[j]]+1;
+				}
+				
+				
+			}
+			
+			
+			for (int k = 0; k < psize; k++) {
+				if (mp[p[k]] != mp2[p[k]]) {
+					
+					flag = 0;
+					break;
+				}
+			}
+			if (flag == 1) {
+				res.push_back(i);
+			}
+			mp.clear();
+		}
+		return res;
+	}
+};
+/****************************/
+滑动窗口去解题:
+1如果右边界所指字符存在于子字符串中则count--,即所需字符串个数减一，
+如果count==0则，说明子字符串存在于字符串中，将左边的left下标存入
+3.如果此时右边减左边等于子字符串长度，则相当于多一个字符串，所有要删掉，则count++;如果不在，则count不需要动
+/**************************/
+class Solution {
+public:
+	vector<int>findAnagrams(string s, string p) {
+		
+		vector<int>res;
+		if (s.empty() || p.empty()) {
+			return res;
+		}
+		int alp[26];
+		int size = s.size();
+		int psize = p.size();
+		for (int i = 0; i < 26; i++) {
+			alp[i] = 0;	
+		}
+		for (int i = 0; i < psize; i++) {
+			alp[p[i] - 'a']++;
+		}
+		int left = 0;
+		int right = 0;
+		int count = psize;
+		while (right < size) {
+			if (--alp[s[right++] - 'a'] >= 0) {
+				count--;
+			}
+			if (count == 0) {
+				res.push_back(left);
+			}
+			if (right - left == psize && alp[s[left++] - 'a']++ >= 0) {
+				count++;
+			}
+		}
+		return res;
+	}
+};
+
