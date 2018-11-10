@@ -1,0 +1,64 @@
+/******************************************/
+Given a List of words, return the words that can be typed using letters of alphabet on only one row's of American keyboard like the image below.
+Input: ["Hello", "Alaska", "Dad", "Peace"]
+Output: ["Alaska", "Dad"]
+Note:
+You may use one character in the keyboard more than once.
+You may assume the input string will only contain letters of alphabet.
+
+
+
+
+/********************************************8/
+
+
+class Solution {
+public:
+	vector<string>findWords(vector<string>&words) {
+		
+		int size = words.size();
+		vector<string>res;
+		for (int i = 0; i < size; i++) {
+			int size2 = words[i].size();
+			int flag = findFlag(words[i][0]);
+			for(int j = 0; j < size2; j++) {
+				if (findFlag(words[i][j]) !=flag) {
+					break;
+				}
+				if(j==size2-1&&findFlag(words[i][j])==flag){
+					res.push_back(words[i]);
+				}
+			}
+		}
+		return res;
+	}
+	int findFlag(char a) {
+		vector<char>tmp{ 'Q','q','W','w','E','e','R','r','T','t','Y','y',
+			'U','u','I','i','O','o','P','p' };
+		vector<char>tmp1{
+			'A','a','S','s','D','d','F','f','G','g',
+			'H','h','J','j','K','k','L','l' };
+			vector<char>tmp2{
+			'Z','z','X','x','C','c','V','v','B','b','N','n','M','m' };
+			if (findA(a, tmp)) {
+				return 1;
+			}
+			if (findA(a, tmp1)) {
+				return 2;
+			}
+
+			if (findA(a, tmp2)) {
+				return 3;
+			}
+
+	}
+	bool findA(char a,vector<char>tmp) {
+		int size = tmp.size();
+		for (int i = 0; i < size; i++) {
+			if (tmp[i] == a) {
+				return true;
+			}
+		}
+		return false;
+	}
+};
