@@ -1,0 +1,36 @@
+/***************************************/
+Given an integer, return its base 7 string representation.
+
+Example 1:
+Input: 100
+Output: "202"
+Example 2:
+Input: -7
+Output: "-10"
+
+/****************************************/
+
+class Solution {
+public:
+    string convertToBase7(int num) {
+     if (num == 0) {
+			return "0";
+		}
+		string s = "";
+		int a = num;
+		if (num <0) {
+			num = -num;
+		}
+		while (num > 0) {
+			int a = num / 7;
+			int b = num % 7;
+			s = to_string(b) + s;
+			num = a;
+
+		}
+		if (a < 0) {
+			s = "-"+s;
+		}
+		return s;
+	}
+};
