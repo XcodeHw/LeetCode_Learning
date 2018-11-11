@@ -1,0 +1,55 @@
+/***************************/
+Given scores of N athletes, find their relative ranks and the people with the top three highest scores, who will be awarded medals: "Gold Medal", "Silver Medal" and "Bronze Medal".
+
+Example 1:
+Input: [5, 4, 3, 2, 1]
+Output: ["Gold Medal", "Silver Medal", "Bronze Medal", "4", "5"]
+Explanation: The first three athletes got the top three highest scores, so they got "Gold Medal", "Silver Medal" and "Bronze Medal". 
+For the left two athletes, you just need to output their relative ranks according to their scores.
+
+/***************************/
+
+class Solution {
+public:
+
+	
+
+	vector<string>findRelativeRanks(vector<int>&nums) {
+		vector<int>tmp2 = nums;
+		sort(nums.begin(), nums.end());
+		reverse(nums.begin(),nums.end());
+		vector<string>tmp;
+		int size = nums.size();
+		
+		for (int i = 0; i < size; i++)
+		{
+			tmp.push_back(to_string(i + 1));
+		}
+		for (int i = 0; i < size; i++) {
+			int inde = findIndex(nums[i], tmp2);
+			if (i == 0 ) {
+				tmp[inde] = "Gold Medal";
+			}
+				else if (i == 1) {
+				tmp[inde] = "Silver Medal";
+			}
+			else if (i == 2) {
+				tmp[inde] = "Bronze Medal";
+			}
+			else {
+				tmp[inde] = to_string(i + 1);
+			}
+		}
+		return tmp;
+	}
+	int findIndex(int a,vector<int>tmp) {
+		int size = tmp.size();
+		for (int i = 0; i < size; i++) {
+			if (tmp[i] == a) {
+				return i;
+			}
+		}
+		return 0;
+	}
+
+};
