@@ -52,3 +52,85 @@ public:
 		return count;
 	}
 };
+//*******************************************//
+class Solution{
+public:
+	int findPairs(vector<int>&nums, int k) {
+		if (k<0) {
+			return 0;
+		}
+		int sum = 0;
+		int  i = 0;
+		vector<int>tmp;
+		tmp = nums;
+		int flag = 0;
+		int count = tmp.size();
+		while (count > 0) {
+			if (k != 0) {
+
+				if (isFind(nums[0] + k, nums) != 0 && isFind(nums[0] - k, nums) != 0) {
+					sum += 2;
+				}
+				else if (isFind(nums[0] + k, nums) != 0 || isFind(nums[0] - k, nums) != 0) {
+					sum += 1;
+				}
+			}
+
+			if (k == 0) {
+
+				if (isFind(nums[0], nums) > 1) {
+					sum += 1;
+					cout << "nums[0]" << nums[0] << endl;
+				}
+			}
+			int tt = tmp[i];
+			for (vector<int>::iterator it = nums.begin(); it != nums.end(); )
+			{
+				if (*it == tmp[i])
+				{
+					it = nums.erase(it);
+
+					flag++;
+				}
+				else
+				{
+					++it;
+				}
+			}
+
+			for (vector<int>::iterator it = tmp.begin(); it != tmp.end(); )
+			{
+				if (*it == tt)
+				{
+					it = tmp.erase(it);
+
+					
+				}
+				else
+				{
+					++it;
+				}
+			}
+			if (flag == 0) {
+				count--;
+			}
+			else {
+				count -= flag;
+			}
+			
+			flag = 0;
+		}
+		return sum;
+	}
+	int  isFind(int a,vector<int>n) {
+		int size = n.size();
+		int count = 0;
+		for (int i = 0; i < size; i++) {
+			if (n[i] == a) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+};
