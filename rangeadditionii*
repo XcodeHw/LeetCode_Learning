@@ -1,0 +1,60 @@
+/*********************************************/
+
+
+/*******************************************/
+
+#include"stdafx.h"
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+class Solution {
+public:
+	int maxCount(int m, int n, vector<vector<int>>&ops) {
+		if (ops.size()==0) {
+			return m*n;
+		}
+		vector<vector<int>>M(m, vector<int>(n));
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				M[i][j] = 0;
+			}
+		}
+		int rows = ops.size();
+		int cols = ops[0].size();
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j <ops[i][0]; j++) {
+				for (int k = 0; k <ops[i][1]; k++) {
+					M[j][k] = M[j][k] + 1;
+				}
+			}
+		}
+		return maxValue(m, n, M);
+	}
+	int maxValue(int m,int n,vector<vector<int>>M) {
+		vector<int>res;
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				res.push_back(M[i][j]);
+			}
+		}
+		sort(res.begin(), res.end());
+		int count = 0;
+		int maxValue = res[m*n - 1];
+		for (int i = m * n - 1; i >= 0; i--) {
+			if (res[i] == maxValue) {
+				count++;
+			}
+		}
+		return count;
+	}
+};
+int main() {
+	Solution s;
+	int m = 3;
+	int n = 3;
+	vector<vector<int>>operations = { {2,2},{3,3} };
+	cout << s.maxCount(m, n, operations);
+	system("pause");
+}
+////////////////////////////////////////
