@@ -1,0 +1,85 @@
+/**************************************/
+Given a Binary Search Tree and a target number, return true if there exist two elements in the BST such that their sum is equal to the given target.
+
+Example 1:
+
+Input: 
+    5
+   / \
+  3   6
+ / \   \
+2   4   7
+
+Target = 9
+
+Output: True
+ 
+
+Example 2:
+
+Input: 
+    5
+   / \
+  3   6
+ / \   \
+2   4   7
+
+Target = 28
+
+Output: False
+
+
+/***********************************/
+
+class Solution {
+public:
+    void inorderTraversal(TreeNode* root, vector<int> &nums)
+    {
+        if(root == NULL)
+            return;
+        inorderTraversal(root->left, nums);
+        nums.push_back(root->val);
+        inorderTraversal(root->right, nums);
+    }
+
+    bool findTarget(TreeNode* root, int k) 
+    {
+        vector<int> nums;
+        inorderTraversal(root, nums);
+        int length = nums.size();
+        int p = 0;
+        int q = length - 1;
+        while(p < q)
+        {
+            if(nums[p] + nums[q] > k)
+                q--;
+            else if(nums[p] + nums[q] < k)
+                p++;
+            else
+                return true;
+        }
+        return false;
+    }
+};
+///////////////////////////////////
+class Solution {
+private:unordered_map<int, int> mp;
+public:
+	bool findTarget(TreeNode* root, int k) {
+		if (root == NULL) return false;
+		
+		return mapTool(root, k);
+	}
+	bool mapTool(TreeNode*root, int k) {
+		if (root == NULL) {
+			return false;
+		}
+		
+		if (mp.count(k - root->val) ==1) {
+			return true;
+		}
+		mp[root->val] = root->val;
+
+		return (mapTool(root->left, k) || mapTool(root->right, k));
+	}
+};
