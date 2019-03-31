@@ -1,0 +1,41 @@
+/*********************************/
+Given a string S and a character C, return an array of integers representing the shortest distance from the character C in the string.
+
+Example 1:
+
+Input: S = "loveleetcode", C = 'e'
+Output: [3, 2, 1, 0, 1, 0, 0, 1, 2, 2, 1, 0]
+ 
+
+/**********************************/
+class Solution {
+public:
+    vector<int> shortestToChar(string S, char C) {
+    	int size = S.size();
+		vector<int>tmp = temp(S, C);
+		vector<int>result;
+		
+		for (int i = 0; i < size; i++) {
+			int min= size;
+			for (int j = 0; j < tmp.size(); j++) {
+
+				if (abs(i - tmp[j]) < min) {
+					min = abs(i - tmp[j]);
+				}
+			}
+			result.push_back(min);
+		}
+		return result;
+	}
+
+	vector<int>temp(string s,char c) {
+		int size = s.size();
+		vector<int>result;
+		for (int i = 0; i < size; i++) {
+			if (s[i] == c) {
+				result.push_back(i);
+			}
+		}
+		return result;
+	}
+};
