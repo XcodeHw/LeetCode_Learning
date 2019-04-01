@@ -1,0 +1,30 @@
+/************************/
+Given an array A of positive lengths, return the largest perimeter of a triangle with non-zero area, formed from 3 of these lengths.
+
+If it is impossible to form any triangle of non-zero area, return 0.
+
+ 
+
+Example 1:
+
+Input: [2,1,2]
+Output: 5
+/***********************/
+class Solution {
+public:
+	int largestPerimeter(vector<int>&A) {
+		int size = A.size();
+		int max = 0;
+		sort(A.begin(), A.end());
+		for (int i = size - 1; i >= 2; i--) {
+			
+			if (A[i-2] + A[i-1] > A[i]) {
+				
+				if (A[i - 1] + A[i] + A[i - 2] > max) {
+					max = A[i - 1] + A[i] + A[i - 2];
+				}
+			}
+		}
+		return max;
+	}
+};
