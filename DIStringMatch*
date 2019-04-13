@@ -1,0 +1,49 @@
+/***************************************/
+Given a string S that only contains "I" (increase) or "D" (decrease), let N = S.length.
+
+Return any permutation A of [0, 1, ..., N] such that for all i = 0, ..., N-1:
+
+If S[i] == "I", then A[i] < A[i+1]
+If S[i] == "D", then A[i] > A[i+1]
+ 
+
+Example 1:
+
+Input: "IDID"
+Output: [0,4,1,3,2]
+Example 2:
+
+Input: "III"
+Output: [0,1,2,3]
+Example 3:
+
+Input: "DDI"
+Output: [3,2,0,1]
+/**************************************/
+ 是有点难懂了，给出一个字符串S，S全部由‘D’和‘I’组成，然后现在需要解出一个数组，而这个数组需要和S相匹配。假设S的长度为N，那么这个数组的长度是N+1，并且值是集合{0...N}的任意排列。给出一个例子，假设有字符串S1 = "DIDID"，那么S1的长度为5，那么答案就必须是集合{0,1,2,3,4,5}的一个排序，可能是{5,4,3,2,1,0}，也可能是{0,1,3,5,2,4}等等。
+
+        而这个排序必须是与字符串S相匹配的。这里上题目的example：
+
+“IDID”
+
+[0，4，1，3，2]
+
+题目的意思是，将字符串与数组一一对应，因为数组多一位，不考虑这一位。剩下的位置，如果字符串写的是‘I’，那么该位置上的数应该比右边所有的数都小。而如果是‘D’，则是比右边的都大。现在需要找到其中任意一组。
+/*******************************************/
+class Solution {
+public:
+   	vector<int>diStringMatch(string S) {
+		int len = S.length(), numi = 0, numd = len;
+		vector<int> res;
+		for (int i = 0; i<len; i++) {
+			if (S[i] == 'I') {
+				res.push_back(numi++);
+			}
+			else if (S[i] == 'D') {
+				res.push_back(numd--);
+			}
+		}
+		res.push_back(numd);
+		return res;
+	}
+};
