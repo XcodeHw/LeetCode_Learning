@@ -1,0 +1,45 @@
+/**************************************/
+Given an array A of strings made only from lowercase letters, return a list of all characters that show up in all strings within the list (including duplicates).  For example, if a character occurs 3 times in all strings but not 4 times, you need to include that character three times in the final answer.
+
+You may return the answer in any order.
+
+ 
+
+Example 1:
+
+Input: ["bella","label","roller"]
+Output: ["e","l","l"]
+Example 2:
+
+Input: ["cool","lock","cook"]
+Output: ["c","o"]
+/************************************/
+class Solution {
+public:
+    vector<string> commonChars(vector<string>& A) {
+        	int size = A.size();
+		vector<string>res;
+		vector<vector<int>>tmp(size, vector<int>(26, 0));
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < A[i].size(); j++) {
+				tmp[i][A[i][j] - 'a']++;
+			}
+		}
+		for (int k = 0; k < 26; k++) {
+			int count = 100;
+			for (int r = 0; r < size; r++) {
+				if (tmp[r][k] < count) {
+					count = tmp[r][k];
+				}
+			}
+			if (count) {
+				for (int i = 0; i < count; i++) {
+					string aa = "";
+					aa += ('a' + k);
+					res.push_back(aa);
+				}
+			}
+		}
+		return res;
+	}
+};
