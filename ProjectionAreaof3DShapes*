@@ -1,0 +1,59 @@
+/*************************************/
+顶部投影面积：通过观察示例图可以发现顶部的投影实际上就是正方体占地面积，即可以看做是二维数组中不为0的元素个数
+前面投影面积：通过观察示例图和二维数组，不难发现实际上前面的投影面积就是二维数组中每行元素的最大值之和
+侧面投影面积：通过观察示例图和二维数组，不难发现实际上前面的投影面积就是二维数组中每列元素的最大值之和
+On a N * N grid, we place some 1 * 1 * 1 cubes that are axis-aligned with the x, y, and z axes.
+
+Each value v = grid[i][j] represents a tower of v cubes placed on top of grid cell (i, j).
+
+Now we view the projection of these cubes onto the xy, yz, and zx planes.
+
+A projection is like a shadow, that maps our 3 dimensional figure to a 2 dimensional plane. 
+
+Here, we are viewing the "shadow" when looking at the cubes from the top, the front, and the side.
+
+Return the total area of all three projections.
+
+ 
+
+Example 1:
+
+Input: [[2]]
+Output: 5
+Example 2:
+
+Input: [[1,2],[3,4]]
+Output: 17
+Explanation: 
+Here are the three projections ("shadows") of the shape made with each axis-aligned plane.
+
+/***********************************/
+    public int projectionArea(int[][] grid) {
+        int result=0;
+        int xy=0;//顶部投影面积，对应二维数组不为0的元素个数
+        int yz=0;//前面投影面积，对应二维数组每行元素的最大值之和
+        int xz=0;//侧面投影面积，对应二维数组每列元素的最大值之和
+        for(int i=0;i<grid.length;i++){//按行遍历二维数组
+            int maxLineValue=0;
+            for (int j=0;j<grid[i].length;j++){
+                if (grid[i][j]!=0){
+                    ++xy;
+                }
+                if(maxLineValue<grid[i][j]){
+                    maxLineValue=grid[i][j];
+                }
+            }
+            yz+=maxLineValue;
+        }
+        for(int i=0;i<grid[0].length;i++){//按列遍历二维数组
+            int maxRowValue=0;
+            for(int j=0;j<grid.length;j++){
+                if(maxRowValue<grid[j][i]){
+                    maxRowValue=grid[j][i];
+                }
+            }
+            xz+=maxRowValue;
+        }
+        result=xy+yz+xz;
+        return result;
+    }
