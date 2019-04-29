@@ -1,0 +1,54 @@
+/**************************************/
+You are given an array A of strings.
+
+Two strings S and T are special-equivalent if after any number of moves, S == T.
+
+A move consists of choosing two indices i and j with i % 2 == j % 2, and swapping S[i] with S[j].
+
+Now, a group of special-equivalent strings from A is a non-empty subset S of A such that any string not in S is not special-equivalent with any string in S.
+
+Return the number of groups of special-equivalent strings from A.
+
+ 
+
+Example 1:
+
+Input: ["a","b","c","a","c","c"]
+Output: 3
+Explanation: 3 groups ["a","a"], ["b"], ["c","c","c"]
+/***************************************/
+class Solution {
+public:
+  int numSpecialEquivGroups(vector<string>& A) {
+        /*
+            // 题目描述的有问题：应该是 如果S经过一定次数的移动后，可以变换到T，则S和T等价。这个翻译任意次数的移动有点折磨人
+            // 问题：按照等价性对字符串分组
+        */
+        unordered_map<string, vector<string>> stringMap;
+        for(auto val: A){
+            string sodd="";
+            for(int i=1; i<val.length(); i+=2){
+                sodd.insert(sodd.end(), val[i]);
+            }
+            string seven="";
+            for(int i=0; i<val.length(); i+=2){
+                seven.insert(seven.end(), val[i]);
+            }
+            sort(sodd.begin(), sodd.end());
+            sort(seven.begin(), seven.end());
+            string str(val.size(),' ');
+            int j=0, k=0;
+            for(int i=0; i<val.length(); i++){
+               // cout<<i<<',';
+                if((i&1)==1){
+                    str[i] = sodd[j]; j++;
+                }else{
+                    str[i] = seven[k]; k++;
+                }
+            }
+            //cout<<"#"<<seven<<','<<sodd<<','<<str;
+            stringMap[str].push_back(val);
+        }
+        return stringMap.size();
+    }  
+};
